@@ -331,7 +331,7 @@ public class Graph {
 		Color[] colors = {Color.BLUE, Color.CYAN, Color.MAGENTA, Color.ORANGE, Color.RED};
 		for(int i: n){
 			for(int j : s){
-				g2d.setColor(colors[j%5]);
+				g2d.setColor(colors[(i/100)%5]);
 				Graph toDraw = run(i,j);
 				toDraw.paintPath(g2d);
 			}
@@ -354,8 +354,8 @@ public class Graph {
 	 * @throws IOException 
 	 */
 	public static void main(String[] args) throws IOException {
-		int[] divisions = {500};
-		int[] slopes = {1,2,3,4,5};
+		int[] divisions = {100,250,500};
+		int[] slopes = {1};
 		paint(divisions, slopes);
 	}
 
