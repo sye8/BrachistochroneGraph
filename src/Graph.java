@@ -1,13 +1,9 @@
 import java.awt.BasicStroke;
 import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Polygon;
 import java.awt.image.BufferedImage;
-
 import java.io.File;
 import java.io.IOException;
-
 import java.util.HashSet;
 import java.util.PriorityQueue;
 import java.util.Set;
