@@ -338,7 +338,7 @@ public class Graph {
 	 */
 	public static void main(String[] args) throws IOException {
 		int[] divisions = {500};
-		int[] slopes = {1,2,3,4,5};
+		int[] slopes = {1,2,3};
 		paint(divisions, slopes);
 	}
 
