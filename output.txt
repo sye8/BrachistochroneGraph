@@ -1,0 +1,59 @@
+n = 500
+s = 1
+Search Time: 0.442s.
+Time to slide from (0,1) to (1,0): 0.6077288998125641
+
+n = 500
+s = 2
+Search Time: 0.906s.
+Time to slide from (0,1) to (1,0): 0.5893186642243239
+
+n = 500
+s = 3
+Search Time: 1.943s.
+Time to slide from (0,1) to (1,0): 0.585540471637385
+
+n = 500
+s = 4
+Search Time: 3.85s.
+Time to slide from (0,1) to (1,0): 0.5843321777787445
+
+n = 500
+s = 5
+Search Time: 6.36s.
+Time to slide from (0,1) to (1,0): 0.5836495474061366
+
+n = 500
+s = 6
+Search Time: 9.252s.
+Time to slide from (0,1) to (1,0): 0.5833638116620455
+
+n = 500
+s = 7
+Search Time: 15.669s.
+Time to slide from (0,1) to (1,0): 0.5831825118145759
+
+n = 500
+s = 8
+Search Time: 20.946s.
+Time to slide from (0,1) to (1,0): 0.5830960007286071
+
+n = 500
+s = 9
+Search Time: 26.636s.
+Time to slide from (0,1) to (1,0): 0.5830376682896321
+
+n = 500
+s = 10
+Search Time: 42.041s.
+Time to slide from (0,1) to (1,0): 0.583006250703529
+
+n = 500
+s = 11
+Search Time: 51.54s.
+Time to slide from (0,1) to (1,0): 0.582985793368791
+
+n = 500
+s = 12
+Search Time: 62.158s.
+Time to slide from (0,1) to (1,0): 0.5829791249593561
