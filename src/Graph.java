@@ -20,6 +20,7 @@ import java.io.IOException;
 public class Graph {
 
 	public int n; // Dividing in n parts
+	public int s; // Furtherest neighbor to search, default to be 1
 	
 	private Vertex [][] vertices;   // Storing all vertices
 	private Vertex [][] path;       // Store the shortest path found using Dijkstra's Algorithm
@@ -36,6 +37,7 @@ public class Graph {
 		}
 		this.path = new Vertex[101][101];		
 		this.g = 9.81 * 100;
+		this.s = 1;
 	}
 	
 	public Graph(int size){
@@ -48,6 +50,7 @@ public class Graph {
 		}
 		this.path = new Vertex[n+1][n+1];
 		this.g = 9.81 * this.n;
+		this.s = 1;
 	}
 	
 	/**
@@ -60,94 +63,7 @@ public class Graph {
 		
 		List<Vertex> neighbors = new ArrayList<Vertex>();
 		
-		if(v.x + 1 < n+1){
-			neighbors.add(vertices[v.x + 1][v.y]);
-			
-			if(v.y + 1 < n+1){
-				neighbors.add(vertices[v.x + 1][v.y + 1]);
-			}
-			if(v.y - 1 > -1){
-				neighbors.add(vertices[v.x + 1][v.y - 1]);
-			}
-			
-			if(v.y + 2 < n+1){
-				neighbors.add(vertices[v.x + 1][v.y + 2]);
-				if(v.x + 3 < n+1){
-					neighbors.add(vertices[v.x + 3][v.y + 2]);
-				}
-				if(v.x - 3 > -1){
-					neighbors.add(vertices[v.x - 3][v.y + 2]);
-				}
-			}
-			if(v.y - 2 > -1){
-				neighbors.add(vertices[v.x + 1][v.y - 2]);
-			}
-			
-			if(v.y + 3 < n+1){
-				neighbors.add(vertices[v.x + 1][v.y + 3]);
-			}
-			if(v.y - 3 > -1){
-				neighbors.add(vertices[v.x + 1][v.y - 3]);
-			}
-		}
-		if(v.x - 1 > -1){
-			neighbors.add(vertices[v.x - 1][v.y]);
-			
-			if(v.y + 1 < n+1){
-				neighbors.add(vertices[v.x - 1][v.y + 1]);
-			}
-			if(v.y - 1 > -1){
-				neighbors.add(vertices[v.x - 1][v.y - 1]);
-			}
-			
-			if(v.y + 2 < n+1){
-				neighbors.add(vertices[v.x - 1][v.y + 2]);
-			}
-			if(v.y - 2 > -1){
-				neighbors.add(vertices[v.x - 1][v.y - 2]);
-			}
-			
-			if(v.y + 3 < n+1){
-				neighbors.add(vertices[v.x - 1][v.y + 3]);
-			}
-			if(v.y - 3 > -1){
-				neighbors.add(vertices[v.x - 1][v.y - 3]);
-			}
-		}
-		if(v.y + 1 < n+1){
-			neighbors.add(vertices[v.x][v.y + 1]);
-			
-			if(v.x + 2 < n+1){
-				neighbors.add(vertices[v.x + 2][v.y + 1]);
-			}
-			if(v.x - 2 > -1){
-				neighbors.add(vertices[v.x - 2][v.y + 1]);
-			}
-			
-			if(v.x + 3 < n+1){
-				neighbors.add(vertices[v.x + 3][v.y + 1]);
-			}
-			if(v.x - 3 > -1){
-				neighbors.add(vertices[v.x - 3][v.y + 1]);
-			}
-		}
-		if(v.y - 1 > -1){
-			neighbors.add(vertices[v.x][v.y - 1]);
-			
-			if(v.x + 2 < n+1){
-				neighbors.add(vertices[v.x + 2][v.y - 1]);
-			}
-			if(v.x - 2 > -1){
-				neighbors.add(vertices[v.x - 2][v.y - 1]);
-			}
-			
-			if(v.x + 3 < n+1){
-				neighbors.add(vertices[v.x + 3][v.y - 1]);
-			}
-			if(v.x - 3 > -1){
-				neighbors.add(vertices[v.x - 3][v.y - 1]);
-			}
-		}
+		
 		
 		return neighbors;	
 	}
