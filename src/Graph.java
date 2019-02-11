@@ -300,6 +300,7 @@ public class Graph {
 		g2d.drawLine(0, 0, 1000, 1000);
 		
 		// Draw actual Brachistochrone optimal solution
+		g2d.setColor(Color.GREEN);
 		paintCycloid(g2d);
 		
 		// Draw the path we found for each n
