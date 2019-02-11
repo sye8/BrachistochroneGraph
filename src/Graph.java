@@ -1,16 +1,17 @@
-import java.util.List;
-import java.util.ArrayList;
-import java.util.PriorityQueue;
-
-import javax.imageio.ImageIO;
-
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+
 import java.io.File;
 import java.io.IOException;
+
+import java.util.HashSet;
+import java.util.PriorityQueue;
+import java.util.Set;
+
+import javax.imageio.ImageIO;
 
 
 /**
@@ -59,11 +60,32 @@ public class Graph {
 	 * @param v Vertex
 	 * @return A List of Vertex
 	 */
-	public List<Vertex> getNeighbors(Vertex v){
+	public Set<Vertex> getNeighbors(Vertex v){
 		
-		List<Vertex> neighbors = new ArrayList<Vertex>();
+		Set<Vertex> neighbors = new HashSet<Vertex>();
 		
-		
+		for(int i = 1; i <= s; i++){
+			for(int j = 1; j <= s; j++){
+				if(v.x + i <= n){
+					neighbors.add(vertices[v.x+i][v.y]);
+					if(v.y + j <= n){
+						neighbors.add(vertices[v.x+i][v.y+j]);
+					}
+					if(v.y - j >= 0){
+						neighbors.add(vertices[v.x+i][v.y-j]);
+					}
+				}
+				if(v.x - i >= 0){
+					neighbors.add(vertices[v.x-i][v.y]);
+					if(v.y + j <= n){
+						neighbors.add(vertices[v.x-i][v.y+j]);
+					}
+					if(v.y - j >= 0){
+						neighbors.add(vertices[v.x-i][v.y-j]);
+					}
+				}
+			}
+		}
 		
 		return neighbors;	
 	}
@@ -147,7 +169,7 @@ public class Graph {
 		while(!queue.isEmpty()){
 			Vertex v = queue.poll();
 			v.known = true;
-			List<Vertex> neighbors = getNeighbors(v);
+			Set<Vertex> neighbors = getNeighbors(v);
 			for(Vertex w: neighbors){
 				if(!w.known){
 					double cvw = cost(v,w);
@@ -193,7 +215,7 @@ public class Graph {
 			int x = n; int y = 0;
 			while(path[x][y] != null){	
 				Vertex v = path[x][y];
-				g2d.drawLine(1000 - (1000/n)*x + 25, (1000/n)*y + 25, 1000 - (1000/n)*v.x + 25, (1000/n)*v.y + 25);
+				g2d.drawLine(1000 - (1000/n)*x, (1000/n)*y, 1000 - (1000/n)*v.x, (1000/n)*v.y);
 				x = v.x;
 				y = v.y;			
 			}
@@ -233,17 +255,17 @@ public class Graph {
 	 * @throws IOException 
 	 */
 	public static void paint(int[] n) throws IOException{
-		BufferedImage img = new BufferedImage(1050, 1050, BufferedImage.TYPE_INT_RGB);
+		BufferedImage img = new BufferedImage(1000, 1000, BufferedImage.TYPE_INT_RGB);
 		Graphics2D g2d = (Graphics2D)img.getGraphics();
 		
 		// Draw Background
 		g2d.setColor(Color.WHITE);
-		g2d.fillRect(0, 0, 1050, 1050);
+		g2d.fillRect(0, 0, 1000, 1000);
 		
 		// Draw diagonal
 		g2d.setStroke(new BasicStroke(2));
 		g2d.setColor(Color.BLACK);
-		g2d.drawLine(0, 0, 1050, 1050);
+		g2d.drawLine(0, 0, 1000, 1000);
 		
 		// Draw actual Brachistochrone optimal solution
 		paintCycloid(g2d);
