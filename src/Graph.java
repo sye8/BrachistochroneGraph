@@ -2,6 +2,7 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Polygon;
 import java.awt.image.BufferedImage;
 
 import java.io.File;
@@ -257,7 +258,22 @@ public class Graph {
 	 * @param g The Graphics to draw with
 	 */
 	public static void paintCycloid(Graphics g){
-		
+		int r1 = 1000;
+
+        int r2 = 1000;
+
+        Polygon p = new Polygon();
+
+        for (int t = 0; t < 200; t++) {
+
+            double theta =( 2.0 * Math.PI * t) / 200;
+
+            double x = (r1 + r2) * Math.cos (theta) + r2 * 4 * Math.cos (theta * r1 / r2);
+
+            double y = (r1 + r2) * Math.sin  (theta) + r2 *  4  * Math.sin  (theta * r1 / r2);
+
+            p.addPoint ( 1000+ (int)x,  1000 +(int) y);
+        }
 	}
 	
 	/**
