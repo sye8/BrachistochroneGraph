@@ -136,20 +136,41 @@ public class Graph {
 	}
 	
 	/**
-	 * Given vertex v and a pair of coordinates wX, wY, calculate the time taken for an object to slide from v to w.
+	 * Given vertex v and a pair of coordinates (wX,wY), calculate the time taken for an object to slide from v to w.
 	 * Assume frictionless, m = 1kg.
 	 * t = 2d/vv+vw
 	 * 
 	 * @param v Starting Vertex
-	 * @param wX Ending point x axis
-	 * @param wY Ending point y axis
-	 * @return
+	 * @param wX Ending point x coordinate
+	 * @param wY Ending point y coordinate
+	 * @return The time taken to slide from v to w
 	 */
 	public double cost(Vertex v, int wX, int wY){
 		double vv = vAtVertex(v);
 		double vw = vAtVertex(wX, wY);
 		double dX = wX - v.x;
 		double dY = wY - v.y;
+		double d = Math.sqrt(dX*dX + dY*dY);
+		
+		return 2*d/(vv+vw);
+	}
+	
+	/**
+	 * Given two pairs of coordinates (vX,vY) and (wX,wY), calculate the time taken for an object to slide from v to w.
+	 * Assume frictionless, m = 1kg.
+	 * t = 2d/vv+vw
+	 * 
+	 * @param vX Starting point x coordinate
+	 * @param vY Starting point y coordinate
+	 * @param wX Ending point x coordinate
+	 * @param wY Ening point y coordinate
+	 * @return The time taken to slide from v to w
+	 */
+	public double cost(int vX, int vY, int wX, int wY){
+		double vv = vAtVertex(vX, vY);
+		double vw = vAtVertex(wX, wY);
+		double dX = wX - vX;
+		double dY = wY - vY;
 		double d = Math.sqrt(dX*dX + dY*dY);
 		
 		return 2*d/(vv+vw);
@@ -324,7 +345,7 @@ public class Graph {
 		// Save Image
 		g2d.dispose();
 		ImageIO.write(img, "png", new File("Brachistochone.png"));
-		System.out.println("Image Saved As: Brachistochone.png\n");
+		System.out.println("Image Saved As: Brachistochone.png");
 	}
 	
 	
@@ -334,7 +355,7 @@ public class Graph {
 	 */
 	public static void main(String[] args) throws IOException {
 		int[] divisions = {500};
-		int[] slopes = {1,2,3};
+		int[] slopes = {1,2,3,4,5,6,7,8,9,10,11,12};
 		paint(divisions, slopes);
 	}
 
