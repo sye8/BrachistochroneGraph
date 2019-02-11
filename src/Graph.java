@@ -93,12 +93,10 @@ public class Graph {
 				if(v.x + i <= n){
 					neighbors.add(vertices[v.x+i][v.y]);
 					if(v.y + j <= n){
-						neighbors.add(vertices[v.x+i][v.y+j]);
-						neighbors.add(vertices[v.x][v.y+j]);
+						neighbors.add(vertices[v.x+i][v.y+j]);	
 					}
 					if(v.y - j >= 0){
-						neighbors.add(vertices[v.x+i][v.y-j]);
-						neighbors.add(vertices[v.x][v.y-j]);
+						neighbors.add(vertices[v.x+i][v.y-j]);					
 					}
 				}
 				if(v.x - i >= 0){
@@ -109,6 +107,12 @@ public class Graph {
 					if(v.y - j >= 0){
 						neighbors.add(vertices[v.x-i][v.y-j]);
 					}
+				}
+				if(v.y + j <= n){
+					neighbors.add(vertices[v.x][v.y+j]);
+				}
+				if(v.y - j >= 0){
+					neighbors.add(vertices[v.x][v.y-j]);
 				}
 			}
 		}
