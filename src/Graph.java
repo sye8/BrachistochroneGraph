@@ -28,6 +28,9 @@ public class Graph {
 	
 	private double g;
 	
+	/**
+	 * The default constructor. n = 100, s = 1
+	 */
 	public Graph(){
 		this.n = 100; // Default to 100		
 		this.vertices = new Vertex[101][101];
@@ -41,6 +44,11 @@ public class Graph {
 		this.s = 1;
 	}
 	
+	/**
+	 * Constructor taking n divisions
+	 * 
+	 * @param size The size of the graph, representing n divisions
+	 */
 	public Graph(int size){
 		this.n = size;
 		this.vertices = new Vertex[n+1][n+1];
@@ -52,6 +60,25 @@ public class Graph {
 		this.path = new Vertex[n+1][n+1];
 		this.g = 9.81 * this.n;
 		this.s = 1;
+	}
+	
+	/**
+	 * Constructor taking n divisions and s furtherest connecting neighbor
+	 * 
+	 * @param size The size of the graph, representing n divisions
+	 * @param slope The biggest slope, representing the futherest connecting neighbor
+	 */
+	public Graph(int size, int slope){
+		this.n = size;
+		this.vertices = new Vertex[n+1][n+1];
+		for(int i = 0; i < n+1; i++){
+			for(int j = 0; j < n+1; j++){
+				vertices[i][j] = new Vertex(i,j);
+			}
+		}
+		this.path = new Vertex[n+1][n+1];
+		this.g = 9.81 * this.n;
+		this.s = slope;
 	}
 	
 	/**
@@ -70,9 +97,11 @@ public class Graph {
 					neighbors.add(vertices[v.x+i][v.y]);
 					if(v.y + j <= n){
 						neighbors.add(vertices[v.x+i][v.y+j]);
+						neighbors.add(vertices[v.x][v.y+j]);
 					}
 					if(v.y - j >= 0){
 						neighbors.add(vertices[v.x+i][v.y-j]);
+						neighbors.add(vertices[v.x][v.y-j]);
 					}
 				}
 				if(v.x - i >= 0){
@@ -235,10 +264,12 @@ public class Graph {
 	 * Run the Brachistochrome Problem at n
 	 * 
 	 * @param n Subdivisions
+	 * @param s Furtherest neighbor
 	 */
-	public static Graph run(int n){
+	public static Graph run(int n, int s){
 		System.out.println("n = " + n);
-		Graph g = new Graph(n);
+		System.out.println("s = " + s);
+		Graph g = new Graph(n,s);
 		double startTime = System.currentTimeMillis();
 		g.dijkstra();
 		double endTime = System.currentTimeMillis();
@@ -251,10 +282,11 @@ public class Graph {
 	/**
 	 * Paint the results to a PNG image
 	 * 
-	 * @param A list of n (divisions) to draw
+	 * @param n A list of n (divisions) to draw
+	 * @param s A list of s (slopes) to draw
 	 * @throws IOException 
 	 */
-	public static void paint(int[] n) throws IOException{
+	public static void paint(int[] n, int[] s) throws IOException{
 		BufferedImage img = new BufferedImage(1000, 1000, BufferedImage.TYPE_INT_RGB);
 		Graphics2D g2d = (Graphics2D)img.getGraphics();
 		
@@ -272,9 +304,13 @@ public class Graph {
 		
 		// Draw the path we found for each n
 		g2d.setColor(Color.BLUE);
+		Color[] colors = {Color.BLUE, Color.CYAN, Color.MAGENTA, Color.ORANGE, Color.PINK};
 		for(int i: n){
-			Graph toDraw = run(i);
-			toDraw.paintPath(g2d);
+			for(int j : s){
+				g2d.setColor(colors[j%5]);
+				Graph toDraw = run(i,j);
+				toDraw.paintPath(g2d);
+			}
 		}
 		
 		// Save Image
@@ -289,8 +325,9 @@ public class Graph {
 	 * @throws IOException 
 	 */
 	public static void main(String[] args) throws IOException {
-		int[] divisions = {10, 50, 100, 500, 1000};
-		paint(divisions);
+		int[] divisions = {500};
+		int[] slopes = {1,2,3,4,5};
+		paint(divisions, slopes);
 	}
 
 }
