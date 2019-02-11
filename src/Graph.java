@@ -257,23 +257,17 @@ public class Graph {
 	 * 
 	 * @param g The Graphics to draw with
 	 */
-	public static void paintCycloid(Graphics g){
-		int r1 = 1000;
-
-        int r2 = 1000;
-
-        Polygon p = new Polygon();
-
-        for (int t = 0; t < 200; t++) {
-
-            double theta =( 2.0 * Math.PI * t) / 200;
-
-            double x = (r1 + r2) * Math.cos (theta) + r2 * 4 * Math.cos (theta * r1 / r2);
-
-            double y = (r1 + r2) * Math.sin  (theta) + r2 *  4  * Math.sin  (theta * r1 / r2);
-
-            p.addPoint ( 1000+ (int)x,  1000 +(int) y);
-        }
+	public static void paintCycloid(Graphics2D g2d){
+		double prevX = 0;
+		double prevY = 0;
+		for(double t = 0.1; t < 3; t += 0.1){
+			double r = 0.572916;
+			double x = r*(t-Math.sin(t));
+			double y = 0 - (r*(-1+Math.cos(t)));
+			g2d.drawLine((int)(prevX*1000), (int)(prevY*1000), (int)(x*1000), (int)(y*1000));
+			prevX = x;
+			prevY = y;
+		}
 	}
 	
 	/**
@@ -315,13 +309,9 @@ public class Graph {
 		g2d.setColor(Color.BLACK);
 		g2d.drawLine(0, 0, 1000, 1000);
 		
-		// Draw actual Brachistochrone optimal solution
-		g2d.setColor(Color.GREEN);
-		paintCycloid(g2d);
-		
 		// Draw the path we found for each n
 		g2d.setColor(Color.BLUE);
-		Color[] colors = {Color.BLUE, Color.CYAN, Color.MAGENTA, Color.ORANGE, Color.PINK};
+		Color[] colors = {Color.BLUE, Color.CYAN, Color.MAGENTA, Color.ORANGE, Color.RED};
 		for(int i: n){
 			for(int j : s){
 				g2d.setColor(colors[j%5]);
@@ -329,6 +319,11 @@ public class Graph {
 				toDraw.paintPath(g2d);
 			}
 		}
+		
+		// Draw actual Brachistochrone optimal solution
+		g2d.setStroke(new BasicStroke(2));
+		g2d.setColor(Color.GREEN);
+		paintCycloid(g2d);
 		
 		// Save Image
 		g2d.dispose();
